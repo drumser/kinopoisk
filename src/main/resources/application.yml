@@ -1,0 +1,6 @@
+server:
+  port : 8080
+
+movie-provider:
+  kinopoisk:
+    base-url: "https://api.ott.kinopoisk.ru/v12"
