@@ -16,6 +16,14 @@ data class MovieResponse(
     val years: String?
 )
 
+data class TopMovieResponse(
+    val movies: List<MovieResponse>
+)
+
+fun List<Movie>.toResponse() = TopMovieResponse(
+    movies = this.map { it.toResponse() }
+)
+
 fun Movie.toResponse() = MovieResponse(
     id = this.id,
     title = this.title,
