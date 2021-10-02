@@ -3,18 +3,18 @@ package ru.quantick.kinopoisk.movie.service
 import mu.KLogging
 import org.springframework.stereotype.Service
 import ru.quantick.kinopoisk.movie.model.Movie
-import ru.quantick.kinopoisk.movie.provider.MovieProvider
+import ru.quantick.kinopoisk.movie.model.MovieStrategy
+import ru.quantick.kinopoisk.movie.service.strategy.TopMovieStrategy
 
 @Service
-class MovieServiceImpl(val movieProvider: MovieProvider) : MovieService {
-    override fun findTopMoviesForTheMonth(): List<Movie> = movieProvider
-        .also {
-            logger.info { "Getting movies from provider ${movieProvider.javaClass}..." }
-        }
-        .findTopForTheMonth()
-        .also {
-            logger.info { "Got ${it.size} movies from provider ${movieProvider.javaClass}" }
-        }
+class MovieServiceImpl(val movieStrategies: List<TopMovieStrategy>) : MovieService {
+    override fun findTopMovies(movieStrategy: MovieStrategy): List<Movie> =
+        movieStrategies
+            .first { it.supports(movieStrategy) }
+            .also {
+                logger.info { "Getting top movies by strategy $movieStrategy" }
+            }
+            .findTop()
 
     companion object : KLogging()
 }

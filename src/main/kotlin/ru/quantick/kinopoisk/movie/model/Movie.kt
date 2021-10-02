@@ -16,11 +16,15 @@ data class MovieResponse(
     val years: String?
 )
 
-data class TopMovieResponse(
+data class MoviesResponse(
     val movies: List<MovieResponse>
 )
 
-fun List<Movie>.toResponse() = TopMovieResponse(
+enum class MovieStrategy {
+    TOP_MONTH, TOP_SERIES
+}
+
+fun List<Movie>.toResponse() = MoviesResponse(
     movies = this.map { it.toResponse() }
 )
 
