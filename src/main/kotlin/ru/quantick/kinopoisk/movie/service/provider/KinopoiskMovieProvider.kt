@@ -1,4 +1,4 @@
-package ru.quantick.kinopoisk.service.movie.provider
+package ru.quantick.kinopoisk.movie.service.provider
 
 import mu.KLogging
 import org.springframework.cache.annotation.Cacheable
@@ -8,27 +8,8 @@ import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientResponseException
 import org.springframework.web.reactive.function.client.bodyToMono
-import ru.quantick.kinopoisk.configuration.movieprovider.KinopoiskProviderConfiguration
-import ru.quantick.kinopoisk.model.Movie
-
-
-data class TopMovieListResponse(
-    val collections: List<CollectionItem>,
-    val status: String
-)
-
-data class CollectionItem(
-    val data: List<DataItem>,
-    val type: String
-)
-
-data class DataItem(
-    val id: String,
-    val title: String,
-    val genres: List<String>?,
-    val posterUrl: String?,
-    val years: String?
-)
+import ru.quantick.kinopoisk.movie.configuration.movieprovider.KinopoiskProviderConfiguration
+import ru.quantick.kinopoisk.movie.model.Movie
 
 @Service
 class KinopoiskMovieProvider(
@@ -89,5 +70,5 @@ class KinopoiskMovieProvider(
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .build()
 
-    companion object: KLogging()
+    companion object : KLogging()
 }

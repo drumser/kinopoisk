@@ -1,9 +1,9 @@
-package ru.quantick.kinopoisk.service.movie
+package ru.quantick.kinopoisk.movie.service
 
 import mu.KLogging
 import org.springframework.stereotype.Service
-import ru.quantick.kinopoisk.model.Movie
-import ru.quantick.kinopoisk.service.movie.provider.MovieProvider
+import ru.quantick.kinopoisk.movie.model.Movie
+import ru.quantick.kinopoisk.movie.service.provider.MovieProvider
 
 @Service
 class MovieServiceImpl(val movieProvider: MovieProvider) : MovieService {

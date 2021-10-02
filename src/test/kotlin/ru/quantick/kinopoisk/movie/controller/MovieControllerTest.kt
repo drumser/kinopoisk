@@ -1,4 +1,4 @@
-package ru.quantick.kinopoisk.controller
+package ru.quantick.kinopoisk.movie.controller
 
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -11,8 +11,8 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import ru.quantick.kinopoisk.model.Movie
-import ru.quantick.kinopoisk.service.movie.provider.MovieProvider
+import ru.quantick.kinopoisk.movie.model.Movie
+import ru.quantick.kinopoisk.movie.service.provider.MovieProvider
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

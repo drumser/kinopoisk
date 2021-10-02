@@ -1,4 +1,4 @@
-package ru.quantick.kinopoisk.configuration.movieprovider
+package ru.quantick.kinopoisk.movie.configuration.movieprovider
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

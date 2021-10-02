@@ -1,4 +1,4 @@
-package ru.quantick.kinopoisk.model
+package ru.quantick.kinopoisk.movie.model
 
 data class Movie(
     val id: String,
