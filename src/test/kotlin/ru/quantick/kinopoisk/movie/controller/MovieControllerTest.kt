@@ -23,7 +23,7 @@ internal class MovieControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @Test
     fun getTop() {
-        every { movieProvider.getTopForTheMonth() } returns listOf(
+        every { movieProvider.findTopForTheMonth() } returns listOf(
             Movie(
                 id = "1",
                 title = "Title1",

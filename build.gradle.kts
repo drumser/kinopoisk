@@ -16,15 +16,16 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web:2.5.4")
-    implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.4")
-    implementation("org.springframework.boot:spring-boot-starter-cache:2.5.4")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.5.5")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
+    implementation("org.springframework.boot:spring-boot-starter-cache:2.5.5")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.5")
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.5.4")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.4")
+    implementation("org.springframework.cloud:spring-cloud-starter-sleuth:3.0.4")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.5.5")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.5")
     testImplementation("com.ninja-squad:springmockk:3.0.1")
 }
 

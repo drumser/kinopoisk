@@ -2,7 +2,7 @@ package ru.quantick.kinopoisk.movie.model
 
 data class Movie(
     val id: String,
-    val title: String,
+    val title: String?,
     val genres: List<String>?,
     val posterUrl: String?,
     val years: String?
@@ -10,7 +10,7 @@ data class Movie(
 
 data class MovieResponse(
     val id: String,
-    val title: String,
+    val title: String?,
     val genres: List<String>?,
     val posterUrl: String?,
     val years: String?

@@ -7,8 +7,11 @@ import ru.quantick.kinopoisk.movie.provider.MovieProvider
 
 @Service
 class MovieServiceImpl(val movieProvider: MovieProvider) : MovieService {
-    override fun getTopMoviesForTheMonth(): List<Movie> = movieProvider
-        .getTopForTheMonth()
+    override fun findTopMoviesForTheMonth(): List<Movie> = movieProvider
+        .also {
+            logger.info { "Getting movies from provider ${movieProvider.javaClass}..." }
+        }
+        .findTopForTheMonth()
         .also {
             logger.info { "Got ${it.size} movies from provider ${movieProvider.javaClass}" }
         }

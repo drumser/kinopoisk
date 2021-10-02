@@ -15,7 +15,7 @@ class MovieController(val movieService: MovieService) {
     @GetMapping("/movies/top")
     fun getTop(): TopMovieResponse =
         movieService
-            .getTopMoviesForTheMonth()
+            .findTopMoviesForTheMonth()
             .map { it.toResponse() }
             .let {
                 TopMovieResponse(

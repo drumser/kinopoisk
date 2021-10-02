@@ -17,7 +17,7 @@ class KinopoiskMovieProvider(
     val kinopoiskProviderConfiguration: KinopoiskProviderConfiguration
 ) : MovieProvider {
     @Cacheable("kinopoisk:get-top-for-a-month")
-    override fun getTopForTheMonth(): List<Movie> {
+    override fun findTopForTheMonth(): List<Movie> {
         val client = prepareClient()
 
         return try {

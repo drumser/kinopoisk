@@ -3,5 +3,5 @@ package ru.quantick.kinopoisk.movie.provider
 import ru.quantick.kinopoisk.movie.model.Movie
 
 interface MovieProvider {
-    fun getTopForTheMonth(): List<Movie>
+    fun findTopForTheMonth(): List<Movie>
 }

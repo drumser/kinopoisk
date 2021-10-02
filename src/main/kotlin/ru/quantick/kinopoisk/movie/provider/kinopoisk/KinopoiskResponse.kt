@@ -12,7 +12,7 @@ data class CollectionItem(
 
 data class DataItem(
     val id: String,
-    val title: String,
+    val title: String?,
     val genres: List<String>?,
     val posterUrl: String?,
     val years: String?
