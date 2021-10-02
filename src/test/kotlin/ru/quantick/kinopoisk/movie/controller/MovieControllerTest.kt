@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import ru.quantick.kinopoisk.movie.model.Movie
-import ru.quantick.kinopoisk.movie.service.provider.MovieProvider
+import ru.quantick.kinopoisk.movie.provider.MovieProvider
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

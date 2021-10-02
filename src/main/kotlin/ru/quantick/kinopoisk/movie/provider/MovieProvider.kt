@@ -1,4 +1,4 @@
-package ru.quantick.kinopoisk.movie.service.provider
+package ru.quantick.kinopoisk.movie.provider
 
 import ru.quantick.kinopoisk.movie.model.Movie
 

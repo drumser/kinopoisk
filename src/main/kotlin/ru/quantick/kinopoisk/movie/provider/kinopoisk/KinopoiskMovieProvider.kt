@@ -1,4 +1,4 @@
-package ru.quantick.kinopoisk.movie.service.provider
+package ru.quantick.kinopoisk.movie.provider.kinopoisk
 
 import mu.KLogging
 import org.springframework.cache.annotation.Cacheable
@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import org.springframework.web.reactive.function.client.bodyToMono
 import ru.quantick.kinopoisk.movie.configuration.movieprovider.KinopoiskProviderConfiguration
 import ru.quantick.kinopoisk.movie.model.Movie
+import ru.quantick.kinopoisk.movie.provider.MovieProvider
 
 @Service
 class KinopoiskMovieProvider(

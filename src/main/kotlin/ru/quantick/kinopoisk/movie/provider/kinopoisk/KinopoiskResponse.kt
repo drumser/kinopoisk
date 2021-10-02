@@ -1,4 +1,4 @@
-package ru.quantick.kinopoisk.movie.service.provider
+package ru.quantick.kinopoisk.movie.provider.kinopoisk
 
 data class TopMovieListResponse(
     val collections: List<CollectionItem>,
