@@ -1,0 +1,114 @@
+package ru.quantick.kinopoisk.movie.provider.kinopoisk
+
+import mu.KLogging
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
+import org.springframework.stereotype.Service
+import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.WebClientResponseException
+import org.springframework.web.reactive.function.client.bodyToMono
+import ru.quantick.kinopoisk.movie.configuration.movieprovider.KinopoiskProviderConfiguration
+import ru.quantick.kinopoisk.movie.model.Movie
+import ru.quantick.kinopoisk.movie.model.MovieStrategy
+import ru.quantick.kinopoisk.movie.provider.MovieProvider
+
+@Service
+class KinopoiskMovieProvider(
+    val kinopoiskProviderConfiguration: KinopoiskProviderConfiguration
+) : MovieProvider {
+    @Cacheable("kinopoisk:find-top-for-a-month")
+    override fun findTopForTheMonth(): List<Movie> {
+        return try {
+            fetchTopMonthList()
+        } catch (e: WebClientResponseException) {
+            emptyList<Movie>().also {
+                logger.error { "Error during request to kinopoisk. Code: ${e.statusCode}; Error: ${e.message}" }
+            }
+        }
+    }
+
+    @Cacheable("kinopoisk:find-top-series")
+    override fun findTopSeries(): List<Movie> {
+        return try {
+            fetchTopSeriesList()
+        } catch (e: WebClientResponseException) {
+            emptyList<Movie>().also {
+                logger.error { "Error during request to kinopoisk. Code: ${e.statusCode}; Error: ${e.message}" }
+            }
+        }
+    }
+
+    private fun fetchTopSeriesList() =
+        fetchList()
+            ?.let { response ->
+                response.collections
+                    .first { it.type == "SELECTION" }
+                    .data
+                    .map {
+                        Movie(
+                            id = it.id,
+                            title = it.title,
+                            genres = it.genres,
+                            posterUrl = it.posterUrl,
+                            years = it.years
+                        )
+                    }
+            }.also {
+                logger.info { "Get ${it?.size} top series from kinopoisk" }
+            } ?: emptyList()
+
+    private fun fetchTopMonthList() =
+        fetchList()
+            ?.let { response ->
+                response.collections
+                    .first { it.type == "OTT_TOP" }
+                    .data
+                    .map {
+                        Movie(
+                            id = it.id,
+                            title = it.title,
+                            genres = it.genres,
+                            posterUrl = it.posterUrl,
+                            years = it.years
+                        )
+                    }
+            }.also {
+                logger.info { "Get ${it?.size} top movies from kinopoisk" }
+            } ?: emptyList()
+
+    private fun fetchList() =
+        prepareClient()
+            .get()
+            .uri { builder ->
+                builder.path("/selections")
+                    .queryParam("itemsLimit", 10)
+                    .queryParam("pageId", "subscriptions")
+                    .queryParam("selectionWindowId", "ya_plus")
+                    .queryParam("selectionsLimit", 10)
+                    .queryParam("selectionsOffset", 0)
+                    .queryParam("serviceId", 25)
+                    .build()
+            }
+            .header(
+                HttpHeaders.USER_AGENT,
+                prepareUserAgent()
+            )
+            .also {
+                logger.info { "Sending request to kinopoisk" }
+            }
+            .retrieve()
+            .bodyToMono<TopMovieListResponse>()
+            .block()
+
+    private fun prepareUserAgent() =
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
+
+    private fun prepareClient(): WebClient =
+        WebClient.builder()
+            .baseUrl(kinopoiskProviderConfiguration.baseUrl)
+            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .build()
+
+    companion object : KLogging()
+}
